@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>智付通AI智能支付 - 企业财务自动化解决方案</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #10b981;
+            --light: #f8fafc;
+            --dark: #0f172a;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+        }
+        body {
+            background-color: #f1f5f9;
+            color: #334155;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), 
+                         url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%232563eb" opacity="0.05"/></svg>');
+        }
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--dark);
+        }
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 12px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+        }
+        .btn:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            margin-left: 15px;
+        }
+        .btn-secondary:hover {
+            background: var(--light);
+        }
+        section {
+            padding: 4rem 0;
+        }
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--secondary);
+            position: relative;
+        }
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+        }
+        .card-body {
+            padding: 1.5rem;
+        }
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto 0;
+        }
+        .timeline:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--primary);
+            left: 50%;
+            margin-left: -2px;
+            opacity: 0.2;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 3rem;
+            display: flex;
+        }
+        .timeline-content {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            width: calc(50% - 40px);
+        }
+        .timeline-date {
+            position: absolute;
+            top: 15px;
+            width: 100px;
+            text-align: center;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .timeline-left .timeline-content {
+            margin-right: auto;
+        }
+        .timeline-left .timeline-date {
+            right: calc(50% + 30px);
+        }
+        .timeline-right {
+            justify-content: flex-end;
+        }
+        .timeline-right .timeline-content {
+            margin-left: auto;
+        }
+        .timeline-right .timeline-date {
+            left: calc(50% + 30px);
+        }
+        .timeline-marker {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 4px solid white;
+            box-shadow: 0 0 0 2px var(--accent);
+        }
+        .pricing-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .pricing-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        .pricing-card.popular {
+            border: 2px solid var(--accent);
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        .pricing-card.popular .pricing-header {
+            background: var(--accent);
+        }
+        .pricing-header {
+            background: var(--primary);
+            color: white;
+            padding: 1.5rem;
+        }
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 1rem 0;
+        }
+        .price-period {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        .pricing-features {
+            padding: 1.5rem;
+            list-style: none;
+        }
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+        .pricing-footer {
+            padding: 0 1.5rem 2rem;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .benefit-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+        .benefit-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--secondary);
+        }
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 3rem 0;
+            text-align: center;
+        }
+        .stat-item {
+            padding: 1.5rem;
+        }
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        .stat-label {
+            font-size: 1.1rem;
+        }
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        .cta-section {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+        @media (max-width: 768px) {
+            .timeline:before {
+                left: 30px;
+            }
+            .timeline-item {
+                padding-left: 70px;
+            }
+            .timeline-date, .timeline-content {
+                width: 100%;
+                position: static;
+                text-align: left;
+            }
+            .timeline-marker {
+                left: 30px;
+            }
+            .btn {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h1 style="color: white; font-size: 1.8rem;">智付通AI智能支付</h1>
+                <nav>
+                    <a href="#features" style="color: white; margin: 0 15px; text-decoration: none;">核心功能</a>
+                    <a href="#timeline" style="color: white; margin: 0 15px; text-decoration: none;">实施规划</a>
+                    <a href="#pricing" style="color: white; margin: 0 15px; text-decoration: none;">定价策略</a>
+                    <a href="#benefits" style="color: white; margin: 0 15px; text-decoration: none;">产品优势</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>企业财务管理的下一代智慧中枢</h1>
+            <p class="subtitle">通过人工智能技术实现支付审核、费用管理和资金安全的全面自动化，让企业支付流程效率提升75%，费用降低23%</p>
+            <div>
+                <a href="#pricing" class="btn">立即体验</a>
+                <a href="#features" class="btn btn-secondary">查看功能</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="overview">
+        <div class="container">
+            <h2 class="section-title">产品概述</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">AI智能支付是一款面向企业的智能财务管理解决方案，旨在通过人工智能技术全面提升资金支付和费用管理的自动化水平。本产品集成了智能付款审核、智能费用规划、智能备用金管理等核心功能，可帮助企业财务人员自动处理繁琐的支付审核与报销流程，大幅降低人工错误和运营成本。</p>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value">75%</div>
+                    <div class="stat-label">付款效率提升</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">23%</div>
+                    <div class="stat-label">差旅费用降低</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">90%</div>
+                    <div class="stat-label">人工错误减少</div>
+                </div>
+            </div>
+            
+            <p style="text-align: center; max-width: 800px; margin: 2rem auto;">当前企业数字化支付与AI技术应用正处于高速发展阶段。全球数字支付解决方案市场规模在2024年已达约983亿美元，并预计在未来几年实现显著增长。与此同时，企业级AI应用市场也在快速扩张，为智能支付产品的发展提供了广阔空间。</p>
+            
+            <div style="max-width: 800px; margin: 3rem auto; background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                
+[](@replace=1)
+                <p style="text-align: center; margin-top: 1rem; font-size: 0.9rem; color: #64748b;">全球数字支付解决方案市场规模预测</p>
+            </div>
+            
+            <p style="text-align: center; max-width: 800px; margin: 2rem auto;">AI智能支付产品顺应这一趋势，将AI深度融入企业支付与费用管理，为财务工作带来革命性的改变。</p>
+        </div>
+    </section>
+
+    <section id="features" style="background: #f8fafc;">
+        <div class="container">
+            <h2 class="section-title">核心功能</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>AI智能付款审核</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>系统自动审核付款交易，支持多银行、多账户集中管理。通过预设的智能支付规则，自动匹配审核条件，大幅降低人工错误率，付款处理效率提升75%。</p>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>全自动智能审核交易</li>
+                            <li>多银行多账户管理</li>
+                            <li>智能匹配支付规则</li>
+                            <li>实时风控拦截异常支付</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>AI智能费用规划</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>动态优化差旅方案，预测交通住宿成本，实时推荐最优行程，自动预订酒店餐饮，实现员工差旅流程全自动化，费用较人工规划平均降低23%。</p>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>差旅方案动态优化</li>
+                            <li>成本精准预测</li>
+                            <li>行程实时推荐</li>
+                            <li>自动预订服务</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>AI智能备用金管理</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>系统动态管理企业备用金，根据业务需求智能划拨和监控备用金使用，优化资金配置，确保日常运营资金充足又不闲置。</p>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>智能资金需求预测</li>
+                            <li>备用金动态划拨</li>
+                            <li>使用实时监控</li>
+                            <li>减少资金沉淀成本</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h3>AI网银USBKey管控</h3>
+                    </div>
+                    <div class="card-body">
+                        <p>在老板授权下，系统自动管理网银U盾的插拔和签名操作，实现付款指令的自动提交，保障资金安全的同时提升自动化程度。</p>
+                        <ul style="margin-top: 1rem; padding-left: 1.5rem;">
+                            <li>U盾集中智能管控</li>
+                            <li>老板手机一键审批</li>
+                            <li>操作留痕可审计</li>
+                            <li>金融级安全标准</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline">
+        <div class="container">
+            <h2 class="section-title">落地实施规划</h2>
+            <div class="timeline">
+                <div class="timeline-item timeline-left">
+                    <div class="timeline-date">2025-08-20</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>AI费用报销审核上线</h3>
+                        <p>自动审核报销单据和凭证，验证发票真伪及合规性，自动触发付款流程，实现报销款快速支付。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item timeline-right">
+                    <div class="timeline-date">2025-08-30</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>AI自动付款审核实现</h3>
+                        <p>对接项目管理、采购管理系统，自动判断付款条件和付款附件是否齐全，完成付款审批。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item timeline-left">
+                    <div class="timeline-date">2025-09-30</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>差旅流程全面自动化</h3>
+                        <p>自动推荐最优行程方案，对接商旅平台完成预订，智能控制差旅预算和费用标准。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item timeline-right">
+                    <div class="timeline-date">2025-09-30</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>产品验证完成</h3>
+                        <p>内部模拟真实业务场景进行端到端测试，确保系统性能和安全性达标。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item timeline-left">
+                    <div class="timeline-date">2025-10-31</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>商业化上线准备</h3>
+                        <p>完成功能测试和系统优化，制定最终定价方案，准备客户培训资料。</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item timeline-right">
+                    <div class="timeline-date">2025-11月</div>
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <h3>正式服务启动</h3>
+                        <p>为企业客户部署实施，构建开放产品生态，对接ERP、OA等管理系统。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" style="background: #f8fafc;">
+        <div class="container">
+            <h2 class="section-title">灵活定价策略</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 2rem;">采用SaaS订阅制收费模式，根据企业规模和功能需求提供多档套餐选择</p>
+            
+            <div class="pricing-table">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>基础版</h3>
+                        <p>适合小型企业或初创团队</p>
+                    </div>
+                    <div class="price">¥2,000<span class="price-period">/月</span></div>
+                    <ul class="pricing-features">
+                        <li>AI付款审核核心功能</li>
+                        <li>费用报销自动化</li>
+                        <li>基础规则配置</li>
+                        <li>多账户管理</li>
+                        <li>基础报表功能</li>
+                        <li>最多50个用户账号</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn">立即开通</a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <div class="pricing-header">
+                        <h3>高级版</h3>
+                        <p>适合中型企业</p>
+                        <div style="position: absolute; top: 15px; right: 15px; background: white; color: var(--accent); padding: 3px 10px; border-radius: 20px; font-size: 0.8rem;">最受欢迎</div>
+                    </div>
+                    <div class="price">¥5,000<span class="price-period">/月</span></div>
+                    <ul class="pricing-features">
+                        <li>包含基础版所有功能</li>
+                        <li>智能差旅规划</li>
+                        <li>备用金管理模块</li>
+                        <li>复杂审批流程定制</li>
+                        <li>多部门预算管控</li>
+                        <li>数据分析决策支持</li>
+                        <li>最多200个用户账号</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn">立即开通</a>
+                    </div>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>旗舰版</h3>
+                        <p>适合大型企业和集团</p>
+                    </div>
+                    <div class="price">¥120,000<span class="price-period">/年起</span></div>
+                    <ul class="pricing-features">
+                        <li>包含高级版所有功能</li>
+                        <li>专属AI网银U盾管控</li>
+                        <li>7×24小时高级支持</li>
+                        <li>定制化开发服务</li>
+                        <li>无限用户账号</li>
+                        <li>多银行及系统对接</li>
+                        <li>专属客户成功经理</li>
+                    </ul>
+                    <div class="pricing-footer">
+                        <a href="#" class="btn">咨询定制</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 2rem;">
+                <p>提供1个月免费试用期，业务量波动大的企业可选择按交易笔数弹性计费</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="benefits">
+        <div class="container">
+            <h2 class="section-title">产品核心优势</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3 class="benefit-title">全面自动化，效率飞跃</h3>
+                    <p>实现从费用报销、付款审批到差旅预订的全流程自动化。AI机器人7×24小时不间断工作，付款审核时间减少75%，员工报销到账速度显著加快。</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">📊</div>
+                    <h3 class="benefit-title">智能决策，降低成本</h3>
+                    <p>通过AI预测和优化算法，动态调整费用支出策略。差旅费用平均降低23%，备用金使用效率提升30%，资金周转率显著提高。</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 class="benefit-title">高度准确，减少差错</h3>
+                    <p>AI审核基于严格规则和机器学习模型，精准识别票据错误、重复报销和异常交易，人工审核失误率降低90%，有效防范财务风险。</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔒</div>
+                    <h3 class="benefit-title">安全可控，灵活易用</h3>
+                    <p>AI管控U盾实现自动化与资金安全的平衡，银行级数据加密和权限管理。支持与企业现有ERP、财务软件无缝集成，员工无需改变工作习惯。</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3 class="benefit-title">持续进化，生态丰富</h3>
+                    <p>通过机器学习持续优化算法，定期发布新功能支持更多银行接口、海外支付等。构建开放平台，支持第三方插件扩展服务。</p>
+                </div>
+                
+                <div class="benefit-card">
+                    <div class="benefit-icon">💼</div>
+                    <h3 class="benefit-title">战略价值升级</h3>
+                    <p>不仅降低运营成本、提升效率，更能建立规范透明的财务流程，为管理层提供及时准确的资金数据支持，助力企业战略决策。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">开启智能财务管理新时代</h2>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem;">选择AI智能支付，让企业每一分钱的流动都创造可量化的价值</p>
+            <a href="#pricing" class="btn" style="background: white; color: var(--primary);">免费试用30天</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h3 style="margin-bottom: 1.5rem;">智付通AI智能支付</h3>
+            <p style="max-width: 600px; margin: 0 auto 1.5rem; opacity: 0.8;">让支付从成本中心升级为利润中心</p>
+            <p style="opacity: 0.7;">© 2025 智付通科技 版权所有</p>
+        </div>
+    </footer>
+</body>
+</html>
